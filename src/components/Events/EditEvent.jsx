@@ -44,16 +44,20 @@ export default function EditEvent() {
     );
   }
 
-  return (
-    <Modal onClose={handleClose}>
-      <EventForm inputData={data} onSubmit={handleSubmit}>
-        <Link to="../" className="button-text">
-          Cancel
-        </Link>
-        <button type="submit" className="button">
-          Update
-        </button>
-      </EventForm>
-    </Modal>
-  );
+  if (data) {
+    content = (
+      <>
+        <EventForm inputData={data} onSubmit={handleSubmit}>
+          <Link to="../" className="button-text">
+            Cancel
+          </Link>
+          <button type="submit" className="button">
+            Update
+          </button>
+        </EventForm>
+      </>
+    );
+  }
+
+  return <Modal onClose={handleClose}>{content}</Modal>;
 }
