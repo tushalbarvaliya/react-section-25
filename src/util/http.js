@@ -1,15 +1,20 @@
-export async function fetchEvents() {
-      // setIsLoading(true);
-      const response = await fetch('http://localhost:3000/events');
+export async function fetchEvents(searchTerm) {
+  let url = "http://localhost:3000/events";
+  if (searchTerm) {
+    url += "?search=" + searchTerm;
+  }
 
-      if (!response.ok) {
-        const error = new Error('An error occurred while fetching the events');
-        error.code = response.status;
-        error.info = await response.json();
-        throw error;
-      }
+  // setIsLoading(true);
+  const response = await fetch(url);
 
-      const { events } = await response.json();
+  if (!response.ok) {
+    const error = new Error("An error occurred while fetching the events");
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
+  }
 
-      return events;
-    }
+  const { events } = await response.json();
+
+  return events;
+}
